@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/favicon.ico">
+
+    <title>PassbookManager</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendors/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendors/passbook/passbook.min.css" rel="stylesheet">
+    <link href="vendors/font-awesome-4.2.0/css/font-awesome.css" rel="stylesheet">
+    <link href="vendors/colorpicker/colorpicker.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/main.css" rel="stylesheet">
+
+
+      <!-- Bootstrap core JavaScript
+   ================================================== -->
+      <!-- In production, place this at the end of the document so the pages load faster -->
+
+      <script src="vendors/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+      <script src="vendors/jquery.cookie.js"></script>
+      <script src="vendors/jquery-ui-1.11.0/jquery-ui.min.js"></script>
+
+
+      <!-- JS (load angular, vendors scripts and our custom js file) -->
+      <script src="vendors/angular-1.2.16/angular.min.js"></script>
+      <script src="vendors/angular-1.2.16/angular-route.js"></script>
+      <script src="vendors/angular-1.2.16/angular-cookies.js"></script>
+      <script src="vendors/angular-1.2.16/angular-sanitize.js"></script>
+      <script src="vendors/colorpicker/bootstrap-colorpicker-module.js"></script>
+
+      <script src="vendors/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
+      <script src="vendors/ui-bootstrap-tpis-0.11.0/ui-bootstrap-tpls-0.11.0.js"></script>
+      <script src="vendors/holderjs/holder.js"></script>
+	  <script src="vendors/barcodes/barcodes.min.js"></script>
+	  
+      <script src="vendors/moment/moment.min.js"></script>      
+
+      <!-- ANGULAR APP + CONTROLLERS -->
+      <script src="app/app.js"></script>
+      <script src="app/services.js"></script>
+
+  </head>
+
+
+  <body ng-controller="MainController">
+
+  <div ng-view=""></div>
+
+  </body>
+</html>

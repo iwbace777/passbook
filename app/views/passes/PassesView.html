@@ -1,0 +1,61 @@
+
+<div class="" ng-include="'app/views/TopMenuView.html'"></div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="" ng-include="'app/views/passes/LeftMenuView.html'"></div>
+
+        <div ng-controller="ModalPassbookController" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Your Passes</h1>
+            insert passbook manager stuff here...
+            <div class="margin-top-20">
+            	<button class="btn btn-primary" ng-click="open()">Create New</button>
+			</div>
+			<div class="margin-top-20">
+				<ul class="ul-passbook-list">
+					<li>
+						<div class="col-sm-1 table-cell text-center"><b>Type</b></div>
+						<div class="col-sm-3 table-cell text-center"><b>Passname</b></div>
+						<div class="col-sm-4 table-cell text-center"><b>Description</b></div>
+						<div class="col-sm-3 table-cell text-center"><b>Last Updated</b></div>
+						<div class="col-sm-1 table-cell text-center">&nbsp;</div>
+					</li>
+				</ul>
+			</div>
+			
+
+    <script type="text/ng-template" id="modalNewPassbook.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Create New Pass</h3>
+        </div>
+        <div class="modal-body" >
+			<div class="row">
+				<div class="col-sm-5">
+					<ul class="nav nav-pills nav-stacked" ng-init="$scope.selected_index = 0">
+						<li ng-repeat="item in items" ng-class="$scope.selected_index === $index ? 'active' : ''">
+							<a ng-click="selected.item = item; $scope.selected_index = $index;" style='cursor: pointer;'>
+								<img ng-src='image/{{item.icon}}' class='img-rounded icon-passbook'/>
+								{{item.name}}
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-7">
+	          			<img ng-src="image/{{selected.item.image}}" class='img-thumbnail' style="width: 100%;">
+						<p class='margin-top-20'><b>Event</b></p>
+	            		<p>{{selected.item.description}}</p>
+				</div>
+			</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+    <!-- div ng-show="selected">Selection from a modal: {{ selected }}</div -->
+        </div>
+    </div>
+</div>
+
+

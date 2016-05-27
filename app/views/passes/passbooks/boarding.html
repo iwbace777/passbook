@@ -1,0 +1,426 @@
+<div class="" ng-include="'app/views/TopMenuView.html'"></div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="" ng-include="'app/views/passes/LeftMenuView.html'"></div>
+
+        <div ng-controller="CreateBordingController" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="init()" id="boardingController">
+            <h1 class="page-header">Create Your Boarding Pass</h1>
+            <div class="row">
+            	<div class="col-md-4">
+					<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+					<button class="btn btn-info" ng-click="reload()">Reload</button>
+					<button class="btn btn-success" ng-click="save()">Save</button>
+				</div>
+				<div class="col-md-8">
+					<a href="#">http://www.the url of this pass......</a>
+				</div>
+            </div>
+            <div class="row">
+            	<div class="col-md-4">  
+            		<p class="margin-top-20">
+            			<div id="passbook" style="position: relative;" >
+							<div class="passbook-container passbook-boarding-pass " ng-class="passbook-transport-gate">
+								<div class="passbook-flipper" style="background: url('{{bordingCard.backgroundImage}}');">
+									<div class="passbook-front " style="background-color: {{bordingCard.backcolor}}">
+										<div class="passbook-picker"></div>
+										<table class="passbook-header">
+											<tbody>
+												<tr>
+													<td rowspan="2" class="passbook-logo passbook-has-image"><img ng-src="{{bordingCard.logo}}" ng-model="bordingCard.logo" style="width: 50px; height: 50px;"></td>
+													<th rowspan="2" class="passbook-title" style="color: {{bordingCard.forecolor}}">{{bordingCard.logoText}}</th>
+												</tr>
+											</tbody>
+										</table>
+										<table class="passbook-header-field" >
+											<thead>
+												<tr >
+													<th ng-repeat="headerField in headerFields" class="passbook-header-label" style="color: {{bordingCard.labelcolor}}" >{{headerField.label}}</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr >
+													<td ng-repeat="headerField in headerFields" class="passbook-header-value" style="color: {{bordingCard.forecolor}}">{{headerField.value}}</td>
+												</tr>
+											</tbody>
+										</table>
+										<div class="passbook-transport passbook-shading"></div>
+										<table class="passbook-primary" >
+											<thead>
+												<tr >
+													<th ng-repeat="primaryField in primaryFields" class="passbook-primary-label" style="color: {{bordingCard.labelcolor}}">{{primaryField.label}}</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr >
+													<td ng-repeat="primaryField in primaryFields" class="passbook-primary-value" style="color: {{bordingCard.forecolor}}">{{primaryField.value}}</td>
+												</tr>
+											</tbody>
+										</table>
+										<table class="passbook-extra-fields passbook-auxiliary">
+											<tbody>
+												<tr>
+													<th ng-repeat="auxiliaryField in auxiliaryFields" style="color: {{bordingCard.labelcolor}}">{{auxiliaryField.label}}</th>
+												</tr>
+												<tr>
+													<td ng-repeat="auxiliaryField in auxiliaryFields" style="color: {{bordingCard.forecolor}}">{{auxiliaryField.value}}</td>
+												</tr>
+											</tbody>
+										</table>
+										<table class="passbook-extra-fields passbook-secondary">
+											<tbody>
+												<tr>
+													<th ng-repeat="secondaryField in secondaryFields" style="color: {{bordingCard.labelcolor}}">{{secondaryField.label}}</th>
+												</tr>
+												<tr>
+													<td ng-repeat="secondaryField in secondaryFields" style="color: {{bordingCard.forecolor}}">{{secondaryField.value}}</td>
+												</tr>
+											</tbody>
+										</table>										
+										<div class="passbook-barcode passbook-barcode-{{bordingCard.barcodeType}}">
+											<div id="barcode" class="barcode"></div>
+										</div>
+										<div class="passbook-moreinfo" ng-click="flip()"></div>
+									</div>
+									<div class="passbook-back passbook-color" style="background-color: {{bordingCard.backcolor}}">
+										<div class="passbook-done" ng-click="flip()"></div>
+										<div class="passbook-back-fields">
+											<table ng-repeat="backField in backFields">
+												<tbody >
+													<tr >
+														<th style="color: {{bordingCard.labelcolor}}">{{backField.label}}</th>
+													</tr>
+													<tr >
+														<td style="border-bottom: 1px solid; color: {{bordingCard.forecolor}}">{{backField.value}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+            		</p>
+            	</div>
+            	<div class="col-md-8">
+            		<div class="form-horizontal">
+            			<div class="panel panel-primary">
+            				<div class="panel-heading">Main Passbook</div>
+            				<div class="panel-body">
+								<div class="form-group">
+									<label for="location" class="col-sm-3 control-label">Logo</label>
+		    						<div class="col-sm-4">
+		    							<div>
+		      								<img id="pass_logo" alt="Pass Logo" src="http://placehold.it/72x72&amp;text=icon.png" style="width: 72px;height: 72px">
+		      							</div>
+		      							<div>
+		      								<input type="text" class="form-control" id="file_logoicon" ng-change="changeLogo()" ng-model="bordingCard.logo">
+	      								</div>	      								
+		    						</div>
+		            			</div>
+								<div class="form-group">
+									<label for="logoText" class="col-sm-3 control-label">Logo Text</label>
+		    						<div class="col-sm-9">
+		      							<input type="text" class="form-control" placeholder="Logo Text" ng-model="bordingCard.logoText">
+		    						</div>            			
+		            			</div>
+								<div class="form-group">
+									<label for="logoText" class="col-sm-3 control-label">Name</label>
+		    						<div class="col-sm-9">
+		      							<input type="text" class="form-control" placeholder="Name" ng-model="bordingCard.name">
+		    						</div>            			
+		            			</div>
+								<div class="form-group">
+									<label for="logoText" class="col-sm-3 control-label">Visible From</label>
+		    						<div class="col-sm-9">
+		      							<input type="text" class="form-control" placeholder="Visible From" ng-model="bordingCard.visibleFrom">
+		    						</div>            			
+		            			</div>
+								<div class="form-group">
+									<label for="logoText" class="col-sm-3 control-label">Visible To</label>
+		    						<div class="col-sm-9">
+		      							<input type="text" class="form-control" placeholder="Visible To" ng-model="bordingCard.visibleTo">
+		    						</div>            			
+		            			</div>
+								<div class="form-group">
+									<label for="location" class="col-sm-3 control-label">Icon</label>
+		    						<div class="col-sm-4">
+		    							<div>
+		      								<img id="pass_icon" alt="Pass Icon" src="http://placehold.it/72x72&amp;text=icon.png" style="width: 72px;height: 72px">
+		      							</div>
+		      							<div>
+		      								<input type="text" class="form-control" id="file_logoicon" ng-change="changeIcon()" ng-model="bordingCard.icon">
+	      								</div>	      								
+		    						</div>
+		            			</div>
+								<div class="form-group">
+									<label for="logoText" class="col-sm-3 control-label">Magnifest</label>
+		    						<div class="col-sm-9">
+		      							<input type="text" class="form-control" placeholder="Magnifest" ng-model="bordingCard.magnifest">
+		    						</div>            			
+		            			</div>
+								<div class="form-group">
+									<label for="logoText" class="col-sm-3 control-label">Signature</label>
+		    						<div class="col-sm-9">
+		      							<input type="text" class="form-control" placeholder="Signature" ng-model="bordingCard.signature">
+		    						</div>            			
+		            			</div>
+								<div class="form-group">
+									<label for="logoText" class="col-sm-3 control-label">Uri</label>
+		    						<div class="col-sm-9">
+		      							<input type="text" class="form-control" placeholder="Uri" ng-model="bordingCard.uri">
+		    						</div>            			
+		            			</div>
+            				</div>
+            			</div>
+            			
+						<div class="panel panel-primary">
+            				<div class="panel-heading">
+            					Header Fields
+           						<button class='btn btn-success btn-x-sm pull-right' ng-click='addHeaderFields()'><span class="glyphicon glyphicon-plus"></span></button>
+           						<div class="clearfix"></div>
+           					</div>
+            				<div class="panel-body">
+		            			<div class="form-group" ng-repeat='headerField in headerFields' >
+									<label for="headerField" class="col-sm-3 control-label">Header Field #{{ $index }}</label>
+		    						<div class="col-sm-2">
+		      							<input type="text" class="form-control" placeholder="Key" ng-model="headerField.key">
+		    						</div>
+		    						<div class="col-sm-3">
+		      							<input type="text" class="form-control" placeholder="Label" ng-model="headerField.label">
+		    						</div>
+		    						<div class="col-sm-3">
+		      							<input type="text" class="form-control" placeholder="Value" ng-model="headerField.value">
+		    						</div>
+		    						<div class="col-sm-1">
+		    							<button class='btn btn-danger btn-x-sm' ng-click="deleteHeaderFields($index)"><span class="glyphicon glyphicon-minus"></span></button>
+		    						</div>
+		            			</div>
+            				</div>
+            			</div>
+						
+            			<div class="panel panel-primary">
+            				<div class="panel-heading">
+            					Primary Fields
+           						<button class='btn btn-success btn-x-sm pull-right' ng-click='addPrimaryFields()'><span class="glyphicon glyphicon-plus"></span></button>
+           						<div class="clearfix"></div>
+           					</div>
+            				<div class="panel-body">
+		            			<div class="form-group" ng-repeat='primaryField in primaryFields' >
+									<label for="primaryField" class="col-sm-3 control-label">Primary Field #{{ $index }}</label>
+		    						<div class="col-sm-2">
+		      							<input type="text" class="form-control" placeholder="Key" ng-model="primaryField.key">
+		    						</div>
+		    						<div class="col-sm-3">
+		      							<input type="text" class="form-control" placeholder="Label" ng-model="primaryField.label">
+		    						</div>
+		    						<div class="col-sm-3">
+		      							<input type="text" class="form-control" placeholder="Value" ng-model="primaryField.value">
+		    						</div>
+		    						<div class="col-sm-1">
+		    							<button class='btn btn-danger btn-x-sm' ng-click="deletePrimaryFields($index)"><span class="glyphicon glyphicon-minus"></span></button>
+		    						</div>
+		            			</div>
+            				</div>
+            			</div>
+            			
+            			<div class="panel panel-primary">
+            				<div class="panel-heading">
+            					Auxiliary Fields
+           						<button class='btn btn-success btn-x-sm pull-right' ng-click='addAuxiliaryFields()'><span class="glyphicon glyphicon-plus"></span></button>
+           						<div class="clearfix"></div>            					
+           					</div>
+            				<div class="panel-body">
+		            			<div class="form-group" ng-repeat='auxiliaryField in auxiliaryFields'>
+									<label for="auxiliaryField" class="col-sm-3 control-label">Auxiliary Field #{{ $index }}</label>
+		    						<div class="col-sm-2">
+		      							<input type="text" class="form-control" placeholder="Key" ng-model="auxiliaryField.key">
+		    						</div>
+		    						<div class="col-sm-3">
+		      							<input type="text" class="form-control" placeholder="Label" ng-model="auxiliaryField.label">
+		    						</div>
+		    						<div class="col-sm-3">
+		      							<input type="text" class="form-control" placeholder="Value" ng-model="auxiliaryField.value">
+		    						</div>
+		    						<div class="col-sm-1">
+		    							<button class='btn btn-danger btn-x-sm' ng-click="deleteAuxiliaryFields($index)"><span class="glyphicon glyphicon-minus"></span></button>
+		    						</div>
+		            			</div>
+            				</div>
+            			</div>
+						
+						<div class="panel panel-primary">
+            				<div class="panel-heading">
+            					Secondary Fields
+           						<button class='btn btn-success btn-x-sm pull-right' ng-click='addSecondaryFields()'><span class="glyphicon glyphicon-plus"></span></button>
+           						<div class="clearfix"></div>            					
+           					</div>
+            				<div class="panel-body">
+		            			<div class="form-group" ng-repeat='secondaryField in secondaryFields'>
+									<label for="secondaryField" class="col-sm-3 control-label">Secondary Field #{{ $index }}</label>
+		    						<div class="col-sm-2">
+		      							<input type="text" class="form-control" placeholder="Key" ng-model="secondaryField.key">
+		    						</div>
+		    						<div class="col-sm-3">
+		      							<input type="text" class="form-control" placeholder="Label" ng-model="secondaryField.label">
+		    						</div>
+		    						<div class="col-sm-3">
+		      							<input type="text" class="form-control" placeholder="Value" ng-model="secondaryField.value">
+		    						</div>
+		    						<div class="col-sm-1">
+		    							<button class='btn btn-danger btn-x-sm' ng-click="deleteSecondaryFields($index)"><span class="glyphicon glyphicon-minus"></span></button>
+		    						</div>
+		            			</div>
+            				</div>
+            			</div>
+
+            			<div class="panel panel-primary">
+            				<div class="panel-heading">
+            					Back Fields
+					           	<button class='btn btn-success btn-x-sm pull-right' ng-click='addBackFields()'><span class="glyphicon glyphicon-plus"></span></button>
+           						<div class="clearfix"></div> 
+           					</div>
+            				<div class="panel-body">
+            				
+		            			<div class="form-group" ng-repeat='backField in backFields'>
+									<label for="backFiled" class="col-sm-3 control-label">Back Field #{{ $index }}</label>
+		    						<div class="col-sm-2">
+		      							<input type="text" class="form-control" placeholder="Key" ng-model="backField.key">
+		    						</div>
+		    						<div class="col-sm-2">
+		      							<input type="text" class="form-control" placeholder="Label" ng-model="backField.label">
+		    						</div>
+		    						<div class="col-sm-4">
+		      							<textarea class="form-control" ng-model="backField.value"></textarea>
+		    						</div>
+		    						<div class="col-sm-1">
+		    							<button class='btn btn-danger btn-x-sm' ng-click="deleteBackFields($index)"><span class="glyphicon glyphicon-minus"></span></button>
+		    						</div>		    								    								    						
+		            			</div>
+            				</div>
+            			</div>
+            			
+            			<div class="panel panel-primary">
+            				<div class="panel-heading">
+            					Locations
+					           	<button class='btn btn-success btn-x-sm pull-right' ng-click='addLocations()'><span class="glyphicon glyphicon-plus"></span></button>
+           						<div class="clearfix"></div>             					
+           					</div>
+            				<div class="panel-body">
+		            			<div class="form-group" ng-repeat='location in locations'>
+									<label for="location" class="col-sm-3 control-label">Location #{{ $index }}</label>
+		    						<div class="col-sm-4" style="width: 15%">
+		      							<input type="text" class="form-control" placeholder="Altitude" value="{{location.alt}}">
+		    						</div>
+		    						<div class="col-sm-4" style="width: 15%">
+		      							<input type="text" class="form-control" placeholder="Latitude"  value="{{location.lat}}">
+		    						</div>
+									<div class="col-sm-4" style="width: 15%">
+		      							<input type="text" class="form-control" placeholder="Longitude" value="{{location.lng}}">
+		    						</div>
+		    						<div class="col-sm-4" style="width: 15%">
+		      							<input type="text" class="form-control" placeholder="relevantText"  value="{{location.rel}}">
+		    						</div>
+		    						<div class="col-sm-1">
+		    							<button class='btn btn-danger btn-x-sm' ng-click="deleteLocations($index)"><span class="glyphicon glyphicon-minus"></span></button>
+		    						</div>
+		            			</div>
+            				</div>
+            			</div>
+						
+						<div class="panel panel-primary">
+            				<div class="panel-heading">
+            					Relevant Date
+					           	<button class='btn btn-success btn-x-sm pull-right' ng-click='addRelevantDates()'><span class="glyphicon glyphicon-plus"></span></button>
+           						<div class="clearfix"></div>             					
+           					</div>
+							<div class="panel-body">
+								<div class="form-group" ng-repeat='relevantDate in relevantDates'>
+									<label for="relevantDate" class="col-sm-3 control-label">Date #{{ $index }}</label>
+									<div class="col-sm-4">
+		      							<input type="text" class="form-control" placeholder="Altitude" value="{{relevantDate.date}}">
+		    						</div>
+									<div class="col-sm-1">
+		    							<button class='btn btn-danger btn-x-sm' ng-click="deleteRelevantDates($index)"><span class="glyphicon glyphicon-minus"></span></button>
+		    						</div>
+								</div>
+							</div>
+						</div>
+            			
+            			<div class="panel panel-primary">
+            				<div class="panel-heading">Barcode</div>
+            				<div class="panel-body">
+		            			<div class="form-group">
+									<label for="format" class="col-sm-3 control-label">Format</label>
+		    						<div class="col-sm-4">
+		    							<select class="form-control" ng-model="bordingCard.barcodeType">
+		    								<option value="qrcode">QR Barcode</option>
+		    								<option value='pdf417'>PDF Barcode</option>		    			
+		    							</select>
+		    						</div>		    								    						
+		            			</div>
+		            			
+		            			<div class="form-group">
+									<label for="encoding" class="col-sm-3 control-label">Text</label>
+		    						<div class="col-sm-4">
+		    							<input class="form-control" placeholder="Encoding" ng-model="bordingCard.barcodeText" />
+		    						</div>
+		    						<div>
+		    							<button class="btn btn-success" ng-click="generate()">Generate</button>
+		    						</div>
+		            			</div>		            			
+            				</div>
+            			</div>
+            			
+            			<div class="panel panel-primary">
+            				<div class="panel-heading">Style</div>
+            				<div class="panel-body">
+								<div class="form-group">
+									<label for="location" class="col-sm-3 control-label">Background Image</label>
+		    						<div class="col-sm-4">
+		      							<input type="text" ng-model="bordingCard.backgroundImage" ng-change="changeBackgroundImage()" />
+		    						</div>			
+		            			</div>
+								<div class="form-group">
+									<label for="location" class="col-sm-3 control-label">Background Color</label>
+		    						<div class="col-sm-4">
+		      							R:<input type="text" ng-model="bordingCard.backcolor_r" ng-change="changeColor();" style="width: 15%;" />
+		      							G:<input type="text" ng-model="bordingCard.backcolor_g" ng-change="changeColor();" style="width: 15%;" />
+		      							B:<input type="text" ng-model="bordingCard.backcolor_b" ng-change="changeColor();" style="width: 15%;" />
+		    						</div>			
+		            			</div>
+								<div class="form-group">
+									<label for="location" class="col-sm-3 control-label">Foreground Color</label>
+		    						<div class="col-sm-4">
+		      							R:<input type="text" ng-model="bordingCard.forecolor_r" ng-change="changeColor();"  style="width: 15%;" />
+		      							G:<input type="text" ng-model="bordingCard.forecolor_g" ng-change="changeColor();"  style="width: 15%;" />
+		      							B:<input type="text" ng-model="bordingCard.forecolor_b" ng-change="changeColor();"  style="width: 15%;" />
+		    						</div>				
+		            			</div>
+		            			<div class="form-group">
+									<label for="location" class="col-sm-3 control-label">Label Color</label>
+		    						<div class="col-sm-4">
+		      							R:<input type="text" ng-model="bordingCard.labelcolor_r" ng-change="changeColor();"  style="width: 15%;" />
+		      							G:<input type="text" ng-model="bordingCard.labelcolor_g" ng-change="changeColor();"  style="width: 15%;" />
+		      							B:<input type="text" ng-model="bordingCard.labelcolor_b" ng-change="changeColor();"  style="width: 15%;" />
+		    						</div>			
+		            			</div>	            					            			
+            				</div>
+            			</div>
+
+            		</div>
+            	</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$(window).scroll(function(evt) {
+		$("#passbook").css("top", $(this).scrollTop());
+	});
+});
+</script>
